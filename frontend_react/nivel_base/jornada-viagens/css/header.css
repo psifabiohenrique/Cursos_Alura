@@ -16,6 +16,9 @@ header {
     /* margin-top: 24px; */
     margin: auto 0;
 }
+input[type="checkbox"]:checked ~ nav {
+    display: block;
+}
 nav {
     display: none;
 }
