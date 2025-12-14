@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using FilmesApi.Data;
-using FilmesApi.Data.Dtos;
-using FilmesApi.Models;
 using FilmesAPI.Data;
 using FilmesAPI.Data.Dtos;
 using FilmesAPI.Models;
@@ -42,7 +39,7 @@ public class CinemaController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult RecuperaCinemasPorId(int id)
     {
-        Cinema cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
+        Cinema? cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
         if (cinema != null)
         {
             ReadCinemaDto cinemaDto = _mapper.Map<ReadCinemaDto>(cinema);
@@ -54,7 +51,7 @@ public class CinemaController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult AtualizaCinema(int id, [FromBody] UpdateCinemaDto cinemaDto)
     {
-        Cinema cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
+        Cinema? cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
         if (cinema == null)
         {
             return NotFound();
@@ -68,7 +65,7 @@ public class CinemaController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeletaCinema(int id)
     {
-        Cinema cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
+        Cinema? cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
         if (cinema == null)
         {
             return NotFound();

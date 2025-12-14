@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using FilmesApi.Data;
-using FilmesApi.Data.Dtos;
-using FilmesApi.Models;
 using FilmesAPI.Data;
 using FilmesAPI.Data.Dtos;
 using FilmesAPI.Models;
@@ -40,7 +37,7 @@ public class EnderecoController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult RecuperaEnderecosPorId(int id)
     {
-        Endereco endereco = _context.Enderecos.FirstOrDefault(endereco => endereco.Id == id);
+        Endereco? endereco = _context.Enderecos.FirstOrDefault(endereco => endereco.Id == id);
         if (endereco != null)
         {
             ReadEnderecoDto enderecoDto = _mapper.Map<ReadEnderecoDto>(endereco);
@@ -53,7 +50,7 @@ public class EnderecoController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult AtualizaEndereco(int id, [FromBody] UpdateEnderecoDto enderecoDto)
     {
-        Endereco endereco = _context.Enderecos.FirstOrDefault(endereco => endereco.Id == id);
+        Endereco? endereco = _context.Enderecos.FirstOrDefault(endereco => endereco.Id == id);
         if (endereco == null)
         {
             return NotFound();
@@ -67,7 +64,7 @@ public class EnderecoController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeletaEndereco(int id)
     {
-        Endereco endereco = _context.Enderecos.FirstOrDefault(endereco => endereco.Id == id);
+        Endereco? endereco = _context.Enderecos.FirstOrDefault(endereco => endereco.Id == id);
         if (endereco == null)
         {
             return NotFound();
