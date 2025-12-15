@@ -29,9 +29,22 @@ public class FilmeController : ControllerBase
         return CreatedAtAction(nameof(RecuperaFilmePorId), new { id = filme.Id }, filme);
     }
     [HttpGet]
-    public IEnumerable<ReadFilmeDto> RecuperarFilmes([FromQuery] int skip = 0,[FromQuery] int take = 10)
+    public IEnumerable<ReadFilmeDto> RecuperarFilmes(
+        [FromQuery] int skip = 0,
+        [FromQuery] int take = 10,
+        [FromQuery] string? nomeCinema = null
+        )
     {
-        return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take).ToList());
+        if (nomeCinema == null)
+        {
+            return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take).ToList());
+        }
+        return _mapper.Map<List<ReadFilmeDto>>(
+            _context.Filmes.Skip(skip).Take(take)
+            .Where(filme => filme.Sessoes.Any(
+                sessao => sessao.Cinema.Nome == nomeCinema)).ToList()
+            );
+
     }
 
     [HttpGet("{id}")]
